@@ -1,4 +1,4 @@
-import { useState } from 'react'; import { useNavigate } from 'react-router-dom'; import toast from 'react-hot-toast';
+import { useState } from 'react'; import { useNavigate, Link } from 'react-router-dom'; import Laptop3D from '../components/Laptop3D'; import toast from 'react-hot-toast';
 import { payOnline } from '../services/payment'; import api from '../services/api'; import { useApp } from '../context/AppContext'; import { inr, rentPreview } from '../utils';
 const GST = 18; // display only; the server calculates the real total
 export default function Cart() {
@@ -10,7 +10,7 @@ export default function Cart() {
     try { const { data } = await api.post('/orders', { items: cart, address, paymentMethod: pay }); setCart([]); toast.success('Order ' + data.orderNo + ' placed'); if (pay === 'razorpay') await payOnline(data, user, () => nav('/user')); else nav('/user'); }
     catch (e) { toast.error(e.response?.data?.message || 'Could not place order'); }
   };
-  if (!cart.length) return <p className="p-8 text-center">Your cart is empty. Browse laptops to rent or buy.</p>;
+  if (!cart.length) return <div className="text-center py-12 px-4"><Laptop3D /><p className="font-serif text-2xl text-ink mt-4">Your cart is empty</p><p className="mt-1">Browse laptops to rent or buy.</p><Link to="/products" className="inline-block mt-5 bg-brand text-white px-6 min-h-12 leading-[3rem] rounded-full font-semibold">Browse laptops</Link></div>;
   return <div className="max-w-3xl mx-auto px-4 py-8 space-y-4">
     {cart.map((i, x) => <div key={x} className="border border-slate-200 rounded-xl p-4 flex justify-between gap-4">
       <div><p className="font-semibold text-ink">{i.name}</p><p className="text-sm">{i.mode === 'buy' ? 'Buy' : `Rent · ${i.units} ${i.plan} unit(s) from ${i.startDate}`}</p></div>

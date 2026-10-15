@@ -1,2 +1,2 @@
-import { Link } from 'react-router-dom';
-export default function NotFound() { return <div className="text-center py-24 px-4"><p className="text-5xl font-bold text-brand">404</p><p className="mt-3 text-ink font-semibold">We could not find that page.</p><Link to="/products" className="inline-block mt-6 bg-brand text-white px-6 py-3 rounded-xl font-semibold">Browse laptops</Link></div>; }
+import { Link } from 'react-router-dom'; import Laptop3D from '../components/Laptop3D';
+export default function NotFound() { return <div className="text-center py-14 px-4"><Laptop3D /><p className="font-serif text-6xl font-bold text-brand mt-4">404</p><p className="mt-2 text-ink font-semibold">We could not find that page.</p><Link to="/products" className="inline-block mt-6 bg-brand text-white px-6 min-h-12 leading-[3rem] rounded-full font-semibold">Browse laptops</Link></div>; }

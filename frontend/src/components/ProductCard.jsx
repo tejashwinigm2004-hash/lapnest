@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'; import ProductImage from './ProductImag
 // compact = smaller card so 8 fit in one row on wide screens
 export default function ProductCard({ p, compact = false }) {
   const c = compact, mode = p.availableFor === 'both' ? (c ? 'Buy/Rent' : 'Buy or rent') : p.availableFor === 'buy' ? 'Buy' : 'Rent', rent = p.availableFor !== 'buy', buy = p.availableFor !== 'rent';
-  return <Link to={`/products/${p._id}`} className="ornate rounded-2xl border border-sand bg-white overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+  return <Link to={`/products/${p._id}`} className="ornate rounded-2xl border border-sand bg-white overflow-hidden lift h-full flex flex-col">
     <div className={`relative ${c ? 'p-2.5 pb-0' : 'p-3 pb-0'}`}><ProductImage p={p} className="aspect-[4/3] w-full rounded-xl" />
       <span className={`absolute z-[3] bg-gold text-white font-semibold rounded-full ${c ? 'top-4 left-4 text-[10px] px-1.5 py-0.5' : 'top-5 left-5 text-xs px-2 py-1'}`}>{p.discountPercent}% off</span>
       <span className={`absolute z-[3] bg-white/90 text-ink rounded-full ${c ? 'top-4 right-4 text-[10px] px-1.5 py-0.5' : 'top-5 right-5 text-xs px-2 py-1'}`}>{mode}</span></div>
