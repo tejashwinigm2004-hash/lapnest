@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@theme {
+  --color-brand:#8A3A1C; --color-ink:#3B2314; --color-body:#6B5240; --color-soft:#F3E7D1; --color-cream:#FBF4E6; --color-sand:#E4CFA8; --color-gold:#B8893A;
+  --color-white:#FFFCF5;
+  --color-slate-100:#F1E6D0; --color-slate-200:#E6D5B5; --color-slate-300:#D9C29A; --color-slate-400:#A38A68; --color-slate-500:#8A735A;
+  --font-sans:"DM Sans",system-ui,sans-serif; --font-serif:Lora,Georgia,serif;
+}
+@layer base {
+  body { background:var(--color-cream); color:var(--color-body); font-family:var(--font-sans); }
+  h1,h2,h3,h4 { font-family:var(--font-serif); color:var(--color-ink); }
+}
+@layer components {
+  /* patterned strip under the top edge and beside headings */
+  .band { background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='14'><path d='M0 14C7 14 7 2 14 2S21 14 28 14' fill='none' stroke='%23B8893A' stroke-width='1.2'/><circle cx='14' cy='9' r='1.4' fill='%23B8893A'/></svg>") repeat-x center / 28px 14px; }
+  /* gold corner flourishes drawn over a card */
+  .ornate { position:relative; }
+  .ornate::before { content:''; position:absolute; inset:0; pointer-events:none; z-index:2; background-repeat:no-repeat; background-size:26px 26px;
+    background-position:left 5px top 5px, right 5px top 5px, left 5px bottom 5px, right 5px bottom 5px;
+    background-image:
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' fill='none' stroke='%23B8893A' stroke-width='1.2'><path d='M2 24C2 11 11 2 24 2'/><circle cx='5' cy='5' r='1.5' fill='%23B8893A'/></svg>"),
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' fill='none' stroke='%23B8893A' stroke-width='1.2'><g transform='matrix(-1 0 0 1 26 0)'><path d='M2 24C2 11 11 2 24 2'/><circle cx='5' cy='5' r='1.5' fill='%23B8893A'/></g></svg>"),
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' fill='none' stroke='%23B8893A' stroke-width='1.2'><g transform='matrix(1 0 0 -1 0 26)'><path d='M2 24C2 11 11 2 24 2'/><circle cx='5' cy='5' r='1.5' fill='%23B8893A'/></g></svg>"),
+      url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26' fill='none' stroke='%23B8893A' stroke-width='1.2'><g transform='matrix(-1 0 0 -1 26 26)'><path d='M2 24C2 11 11 2 24 2'/><circle cx='5' cy='5' r='1.5' fill='%23B8893A'/></g></svg>"); }
+  /* faint mandala lines on the brown sections */
+  .pattern { background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' fill='none' stroke='white' stroke-opacity='.14'><circle cx='80' cy='80' r='70'/><circle cx='80' cy='80' r='50'/><circle cx='80' cy='80' r='30'/><path d='M80 10V150M10 80H150M31 31L129 129M129 31L31 129'/></svg>"); background-size:160px; }
+  /* soft domes along the bottom of a page */
+  .skyline { background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='120' fill='%23E4CFA8' fill-opacity='.6'><path d='M0 120V80h20V60l8-20 8 20v20h30V70c0-14 12-26 26-26s26 12 26 26v50zM160 120V90c0-24 18-46 42-46s42 22 42 46v30zM190 44l12-22 12 22zM300 120V70h24V50l10-24 10 24v20h24v50zM420 120V84c0-20 16-38 34-38s34 18 34 38v36z'/></svg>") repeat-x bottom / 520px 120px; }
+}
+@media (max-width:767px){ body { padding-bottom:4.5rem; } }
+:focus-visible { outline:2px solid #8A3A1C; outline-offset:2px; }

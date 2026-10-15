@@ -1,0 +1,10 @@
+import { Link } from 'react-router-dom'; import { Instagram, Facebook, MessageCircle, Phone, Mail, MapPin } from 'lucide-react'; import { biz, wa } from '../config';
+export default function Footer() {
+  const a = 'flex items-center gap-2 hover:text-white', h = 'font-serif font-semibold text-white text-lg';
+  return <footer className="pattern bg-brand text-[#F6E7CC] mt-16 border-t-4 border-gold"><div className="max-w-6xl mx-auto px-4 py-10 grid gap-8 sm:grid-cols-3">
+    <div><p className="font-serif font-bold text-white text-2xl">{biz.name}</p><p className="text-sm mt-2 max-w-xs">{biz.tagline}. Rent by the day, week or month, or buy at 5–10% off.</p>
+      <div className="flex gap-3 mt-4 text-white"><a aria-label="Instagram" href={biz.instagram} target="_blank" rel="noreferrer"><Instagram /></a><a aria-label="Facebook" href={biz.facebook} target="_blank" rel="noreferrer"><Facebook /></a><a aria-label="WhatsApp" href={wa()} target="_blank" rel="noreferrer"><MessageCircle /></a></div></div>
+    <div className="text-sm space-y-2"><p className={h}>Quick links</p><Link className="block hover:text-white" to="/products">Laptops</Link><Link className="block hover:text-white" to="/about">About us</Link><Link className="block hover:text-white" to="/contact">Contact us</Link><Link className="block hover:text-white" to="/user">My account</Link></div>
+    <div className="text-sm space-y-2"><p className={h}>Contact</p><a className={a} href={`tel:+91${biz.phone}`}><Phone size={16} />{biz.phone}</a><a className={a} href={`mailto:${biz.email}`}><Mail size={16} />{biz.email}</a><p className={a}><MapPin size={16} />{biz.address}</p><p>{biz.hours}</p></div></div>
+    <div className="text-center text-xs py-4 border-t border-white/20 space-x-4"><Link className="hover:text-white" to="/terms">Terms and Conditions</Link><Link className="hover:text-white" to="/privacy">Privacy Policy</Link><Link className="hover:text-white" to="/refund-policy">Refund and Cancellation Policy</Link><span>© {new Date().getFullYear()} {biz.name}. All rights reserved.</span></div></footer>;
+}
