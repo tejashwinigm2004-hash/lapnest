@@ -23,9 +23,6 @@ function FullHero({ kind, onBook }) {
     <ChevronDown aria-hidden="true" className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/80 animate-bounce" />
     {kind === 'file' && <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Turn sound on' : 'Turn sound off'} className="absolute bottom-5 right-5 z-10 w-11 h-11 rounded-full bg-white/90 text-ink grid place-items-center">{muted ? <VolumeX size={18} /> : <Volume2 size={18} />}</button>}</section>;
 }
-function AboutVisual() {
-  return <Parallax speed={0.08}><div className="rounded-2xl overflow-hidden border border-sand bg-white shadow-lg"><video src="/ads/advertise.mp4" poster="/about.jpg" autoPlay muted loop playsInline preload="auto" className="w-full aspect-video object-cover block pointer-events-none" /></div></Parallax>;
-}
 export default function Home() {
   const [items, setItems] = useState(null); useEffect(() => { api.get('/products').then(r => setItems(r.data)).catch(() => setItems([])); }, []);
   const [callOpen, setCallOpen] = useState(false), [chip, setChip] = useState('all'); const { user, cart } = useApp(); const shown = (items || []).filter(p => chip === 'all' || p.availableFor === 'both' || p.availableFor === chip); const f = items?.[0];
@@ -62,12 +59,11 @@ export default function Home() {
     <Advisor items={items} />
     <section className="max-w-6xl mx-auto px-4 pb-14"><Reveal className="text-center mb-6"><h2 className="font-serif text-3xl font-bold text-ink">How renting works</h2><div className="band mx-auto mt-2 w-24 h-3.5" aria-hidden="true" /></Reveal>
       <ol className="grid gap-4 md:grid-cols-3">{[['Choose', 'Pick a laptop, a plan and a start date.'], ['Order', 'Place the order. We confirm the payment and deliver.'], ['Extend or return', 'Extend or schedule pickup from your account.']].map(([t, d], i) => <Reveal as="li" delay={i * 0.12} key={t} className="lift ornate bg-white border border-sand rounded-2xl p-6 text-center"><span className="font-serif font-bold text-brand text-xl">Step 0{i + 1}</span><p className="font-semibold text-ink mt-1">{t}</p><p className="text-sm mt-1">{d}</p></Reveal>)}</ol></section>
-    <section className="bg-soft"><div className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-center">
-      <Reveal><h2 className="font-serif text-3xl font-bold text-ink">About {biz.name}</h2>
-        <p className="mt-3">{biz.name} gives students, startups and teams a simple way to get a good laptop without paying full price. Rent one for a week or a month, or buy it at 5–10% below MRP.</p>
-        <ul className="mt-4 space-y-2 text-sm list-disc ml-5"><li>Every laptop is checked before it goes out.</li><li>Rent, deposit and GST are shown before you order.</li><li>Call or message us if anything goes wrong.</li></ul>
-        <Link to="/about" className="inline-block mt-6 bg-brand text-white px-6 min-h-12 leading-[3rem] rounded-full font-semibold">More about us</Link></Reveal>
-      <Reveal delay={0.15}><AboutVisual /></Reveal></div></section>
+    <section className="bg-soft"><div className="max-w-6xl mx-auto px-4 py-16 text-center">
+      <Reveal><h2 className="font-serif text-3xl md:text-4xl font-bold text-ink">About {biz.name}</h2>
+        <p className="mt-4 text-lg md:text-xl max-w-4xl mx-auto">{biz.name} gives students, startups and teams a simple way to get a good laptop without paying full price. Rent one for a week or a month, or buy it at 5–10% below MRP.</p>
+        <ul className="mt-8 grid gap-4 md:grid-cols-3 text-base"><li>Every laptop is checked before it goes out.</li><li>Rent, deposit and GST are shown before you order.</li><li>Call or message us if anything goes wrong.</li></ul>
+        <Link to="/about" className="inline-block mt-8 bg-brand text-white px-6 min-h-12 leading-[3rem] rounded-full font-semibold">More about us</Link></Reveal></div></section>
     <section className="max-w-6xl mx-auto px-4 py-14"><h2 className="text-2xl font-bold text-ink mb-6">Everything in one place</h2>
       <div className="grid gap-4 max-w-3xl">{quick.map(([I, t, d, to, b], i) => <Reveal key={t} delay={i * 0.08} className="lift border border-slate-200 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center gap-4"><I className="text-brand shrink-0" size={28} />
         <div className="flex-1"><p className="font-semibold text-ink">{t}</p><p className="text-sm mt-1">{d}</p></div>
