@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @theme {
   --color-brand:#D9480F;
@@ -8,12 +9,17 @@
   --color-sand:#E7E5E4;
   --color-gold:#F59E0B;
   --color-white:#FFFFFF;
-  --font-sans:"DM Sans",system-ui,sans-serif;
-  --font-serif:"DM Sans",system-ui,sans-serif;
+  /* ===== FONT: change "Poppins" here and in the @import line at the top ===== */
+  --font-sans:"Poppins",system-ui,sans-serif;
+  --font-serif:"Poppins",system-ui,sans-serif;
 }
 @layer base {
-  body { background:var(--color-cream); color:var(--color-body); font-family:var(--font-sans); }
-  h1,h2,h3,h4 { font-family:var(--font-sans); color:var(--color-ink); letter-spacing:-0.01em; }
+  /* ===== SIZE: 100% is normal. Use 106% for bigger text or 94% for smaller text on the whole site ===== */
+  html { font-size:100%; }
+  body { background:var(--color-cream); color:var(--color-body); font-family:var(--font-sans); line-height:1.6; }
+  h1,h2,h3,h4 { font-family:var(--font-sans); color:var(--color-ink); font-weight:600; line-height:1.2; letter-spacing:-0.01em; }
+  /* headings placed on dark or colored backgrounds keep the white text of their section */
+  [class~="text-white"] :is(h1,h2,h3,h4) { color:inherit; }
 }
 @layer components {
   .band { background:linear-gradient(var(--color-brand),var(--color-brand)) center / 56px 4px no-repeat; }
@@ -103,7 +109,7 @@ main h1 { animation:slideUp .7s cubic-bezier(.2,.7,.2,1) both; }
 }
 .l3d-screen, .l3d-back { position:absolute; inset:0; border-radius:10px 10px 4px 4px; backface-visibility:hidden; }
 .l3d-screen { background:radial-gradient(circle at 72% 28%,rgba(217,72,15,.6),transparent 60%),#0F172A; border:6px solid #1E293B; }
-.l3d-screen b { position:absolute; left:14px; top:12px; color:#fff; font:700 15px "DM Sans",sans-serif; }
+.l3d-screen b { position:absolute; left:14px; top:12px; color:#fff; font:700 15px "Poppins",sans-serif; }
 .l3d-screen span { position:absolute; left:14px; right:42%; bottom:16px; height:34px; background:repeating-linear-gradient(rgba(255,255,255,.35) 0 3px,transparent 3px 10px); }
 .l3d-back { transform:rotateY(180deg); background:radial-gradient(circle at 50% 50%,#fff 0 11px,transparent 12px),#D9480F; }
 .l3d-shadow { position:absolute; left:30px; right:30px; bottom:-6px; height:22px; border-radius:50%; background:rgba(30,41,59,.25); filter:blur(10px); }
