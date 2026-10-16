@@ -1,7 +1,6 @@
-import { useState } from 'react'; import { Link, useLocation } from 'react-router-dom'; import { CalendarClock, Search, MessageCircle, X } from 'lucide-react'; import { wa } from '../config'; import BookCall from './BookCall';
+import { useEffect, useState } from 'react'; import { Link, useLocation } from 'react-router-dom'; import { CalendarClock, Search, MessageCircle, X } from 'lucide-react'; import { wa } from '../config'; import { useApp } from '../context/AppContext'; import BookCall from './BookCall';
 
-const KEY = 'popupsClosed', IDS = ['call', 'find', 'team'];
-const read = () => { try { return JSON.parse(sessionStorage.getItem(KEY) || '[]'); } catch { return []; } };
+const IDS = ['call', 'find', 'team'];
 
 // Shown one by one, in this order
 const CARDS = [
@@ -13,11 +12,18 @@ const CARDS = [
 const BLINK = `@keyframes popBlink{0%,100%{box-shadow:0 0 0 0 rgba(217,72,15,.6);opacity:1}50%{box-shadow:0 0 0 12px rgba(217,72,15,0);opacity:.78}}.pop-blink{animation:popBlink 1.4s ease-in-out infinite}.pop-blink:hover{animation:none}@media (prefers-reduced-motion:reduce){.pop-blink{animation:none}}`;
 
 export default function SitePopups() {
-  const { pathname } = useLocation(), [closed, setClosed] = useState(read), [call, setCall] = useState(false);
-  const save = ids => { setClosed(ids); try { sessionStorage.setItem(KEY, JSON.stringify(ids)); } catch { /* ignore */ } };
-  const dismiss = id => save(closed.includes(id) ? closed : [...closed, id]);
-  const dismissAll = () => save(IDS);
-  if (pathname.startsWith('/admin')) return null;
+  const { pathname } = useLocation(), { user } = useApp(), loggedIn = !!user;
+  const [closed, setClosed] = useState([]), [call, setCall] = useState(false);
+
+  // Show the popups again every time the visitor opens the home page
+  useEffect(() => { if (pathname === '/') setClosed(c => (c.length ? [] : c)); }, [pathname]);
+  // Show the popups again right after login
+  useEffect(() => { if (loggedIn) setClosed(c => (c.length ? [] : c)); }, [loggedIn]);
+
+  const dismiss = id => setClosed(c => (c.includes(id) ? c : [...c, id]));
+  const dismissAll = () => setClosed(IDS);
+  if (/^\/(admin|login|register)/.test(pathname)) return <BookCall open={call} onClose={() => setCall(false)} />;
+
   const c = CARDS.find(x => !closed.includes(x.id));
   const btn = 'pop-blink mt-7 w-full bg-brand text-white font-semibold min-h-12 px-5 rounded-full grid place-items-center';
   const cta = !c ? null : c.id === 'call'
