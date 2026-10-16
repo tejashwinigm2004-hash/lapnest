@@ -12,6 +12,7 @@ export default function Auth({ register }) {
   return <div className="relative overflow-hidden pb-10"><Shapes /><div className="relative z-10 max-w-4xl mx-auto grid lg:grid-cols-2 items-center gap-6 px-4"><form key={String(register)} onSubmit={submit} className="w-full max-w-sm mx-auto p-6 mt-10 space-y-3 border border-slate-200 rounded-2xl bg-white/90 backdrop-blur">
     <h1 className="text-xl font-bold text-ink">{register ? 'Create your account' : 'Sign in'}</h1>
     {register && <>{field('name', 'Full name')}{field('phone', '10-digit phone')}</>}{field('email', 'Email', 'email')}{password}
+    {!register && <div className="text-right -mt-1"><Link to="/forgot-password" className="text-sm font-medium text-brand hover:underline">Forgot password?</Link></div>}
     <button className="w-full bg-brand text-white min-h-11 rounded-lg font-semibold">{register ? 'Create account' : 'Sign in'}</button>
     <p className="text-sm">{register ? <Link to="/login">Have an account? Sign in</Link> : <Link to="/register">New here? Create an account</Link>}</p></form><div className="hidden lg:block mt-10"><Laptop3D /></div></div></div>;
 }
