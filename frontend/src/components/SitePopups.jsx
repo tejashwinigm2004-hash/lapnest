@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'; import { Link, useLocation } from 'react-router-dom'; import { CalendarClock, Search, MessageCircle, X } from 'lucide-react'; import { wa } from '../config'; import { useApp } from '../context/AppContext'; import BookCall from './BookCall';
 
 const IDS = ['call', 'find', 'team'];
-const FIRST_DELAY = 10000; // first popup appears 10 seconds after the visitor enters
-const NEXT_DELAY = 5000;   // each next popup appears 5 seconds after the previous one is closed
+const FIRST_DELAY = 60000; // first popup appears 1 minute after the visitor enters
+const NEXT_DELAY = 60000;  // each next popup appears 1 minute after the previous one is closed
 
 // ===== EDIT: background image of each popup (files go in frontend/public/popups) =====
 const IMAGES = { call: '/popups/call.jpg', find: '/popups/find.jpg', team: '/popups/team.jpg' };
@@ -28,7 +28,7 @@ export default function SitePopups() {
   // Start the cycle again right after login
   useEffect(() => { if (loggedIn) { setShow(false); setClosed([]); } }, [loggedIn]);
 
-  // Wait 10 seconds before the first popup, then 5 seconds before each next one
+  // Wait 1 minute before the first popup, then 1 minute before each next one
   useEffect(() => {
     if (hidden || show || !next) return;
     const t = setTimeout(() => setShow(true), closed.length === 0 ? FIRST_DELAY : NEXT_DELAY);
