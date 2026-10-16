@@ -1,7 +1,15 @@
 import { ShieldCheck, Tag, Phone } from 'lucide-react'; import { biz } from '../config'; import Reveal from '../components/Reveal';
 
+// ===== EDIT: the "Who we are" text. Each line is one paragraph. =====
+const ABOUT = [
+  'At LapNest, we provide reliable and flexible IT solutions to help businesses operate efficiently and grow with confidence. We specialize in laptop rentals, IT hardware procurement, software solutions, and genuine software licensing to meet the diverse technology needs of businesses, startups, and enterprises.',
+  'Our services go beyond laptop rentals. We help organizations access essential business software, cybersecurity solutions, productivity tools, and network infrastructure licenses from trusted technology providers.',
+  'Our offerings include laptop and IT equipment rentals, Microsoft Office 365, GoTo solutions, CrowdStrike cybersecurity solutions, Aruba networking licenses, and other enterprise software and licensing services.',
+  'At LapNest, we focus on delivering cost-effective solutions, flexible rental options, dependable service, and technology that supports your business goals. Whether you need laptops for a growing team, software licenses for daily operations, or networking and security solutions for your IT infrastructure, we aim to make technology procurement simple and hassle-free.',
+];
+const ABOUT_CLOSING = 'LapNest – Your Trusted Partner for IT Hardware, Software and Licensing Solutions.';
+
 // ===== EDIT: team members. Separate paragraphs in a bio with a blank line (\n\n). =====
-// The focus area of each Managing Director below is only a suggestion. Confirm it with the client and edit the story.
 const TEAM = [
   {
     name: 'Teja K H', role: 'Managing Director',
@@ -12,12 +20,12 @@ const TEAM = [
     bio: 'Jeevan NL is a Managing Director of LapNest and focuses on laptop quality. Every laptop is checked before it goes out, so what reaches the customer is ready to use from day one.\n\nWhether it is rented for a week or a month, or bought outright, the standard stays the same: a laptop that works the way it should.',
   },
   {
-    name: 'Vasanth Reddy', role: 'Managing Director',
-    bio: 'Vasanth Reddy is a Managing Director of LapNest and focuses on clear pricing. Rent, deposit and GST are shown before an order is placed, and laptops for sale are priced 5–10% below MRP.\n\nThe aim is that no customer is ever surprised by a charge at checkout.',
+    name: 'Vasanth Reddy', role: 'Shareholder',
+    bio: 'Vasanth Reddy is a Shareholder of LapNest and has backed the business from the start. He believes that companies of every size should be able to get dependable IT hardware and genuine software without a heavy upfront cost.\n\nHis focus is on growth that lasts: building partnerships with trusted technology providers and making sure LapNest keeps its prices clear and its promises kept as it grows.',
   },
   {
-    name: 'Kalpana G', role: 'Managing Director',
-    bio: 'Kalpana G is a Managing Director of LapNest and focuses on customer care. Customers can call, message on WhatsApp or book a call, and the team is there when something goes wrong.\n\nA good rental does not end at delivery, so every question and every problem gets a real answer.',
+    name: 'Kalpana G', role: 'Shareholder',
+    bio: 'Kalpana G is a Shareholder of LapNest and cares most about the long-term trust the company builds with its customers. For her, a good IT partner is one that is still reliable years after the first order.\n\nShe encourages the team to put service first: honest advice, quick answers and support that continues well after delivery.',
   },
   {
     name: 'Gangothri V', role: 'Accounts',
@@ -48,11 +56,14 @@ export default function About() {
     </section>
 
     {/* Intro */}
-    <section className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-center">
+    <section className="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-2 gap-10 items-start">
       <Reveal>
         <h2 className="text-3xl font-bold text-ink">Who we are</h2>
         <div className="band mt-2 w-14 h-3.5" style={{ backgroundPosition: 'left center' }} aria-hidden="true" />
-        <p className="mt-5 text-lg leading-8">{biz.name} gives students, startups and teams a simple way to get a good laptop without paying full price. Rent one for a week or a month, or buy it at 5–10% below MRP.</p>
+        <div className="mt-5 space-y-4 text-lg leading-8">
+          {ABOUT.map((t, i) => <p key={i}>{t}</p>)}
+          <p className="font-semibold text-ink">{ABOUT_CLOSING}</p>
+        </div>
       </Reveal>
       <div className="grid gap-4">
         {POINTS.map(([I, t, d], i) => <Reveal key={t} delay={i * 0.1}>
