@@ -1,16 +1,24 @@
 import { ShieldCheck, Tag, Phone } from 'lucide-react'; import { biz } from '../config'; import Reveal from '../components/Reveal';
 
 // ===== EDIT: team members. Separate paragraphs in a bio with a blank line (\n\n). =====
-const MEMBER_BIO = 'is part of the LapNest team that keeps renting simple. The team checks every laptop before it goes out, shows the rent, deposit and GST before an order is placed, and stays a call or message away when a customer needs help.\n\nEvery rental and every sale is handled with the same aim: a good laptop, a fair price and no surprises.';
-
+// The focus area of each Managing Director below is only a suggestion. Confirm it with the client and edit the story.
 const TEAM = [
   {
     name: 'Teja K H', role: 'Managing Director',
-    bio: 'Teja K H leads LapNest as Managing Director, setting the direction of the business and making sure every part of it works toward one goal: giving students, startups and teams a simple, fair way to get a good laptop.\n\nFrom pricing to delivery to customer care, Teja keeps the focus on clear terms, well-checked laptops and a team that is easy to reach.',
+    bio: 'Teja K H is a Managing Director of LapNest and sets the direction of the business. The idea behind LapNest is simple: students, startups and teams should be able to get a good laptop without paying full price.\n\nThat idea guides every decision, from which laptops are offered to how rent and prices are explained, so a customer always knows what they are getting.',
   },
-  { name: 'Jeevan NL', role: 'Team Member', bio: `Jeevan NL ${MEMBER_BIO}` },
-  { name: 'Vasanth Reddy', role: 'Team Member', bio: `Vasanth Reddy ${MEMBER_BIO}` },
-  { name: 'Kalpana G', role: 'Team Member', bio: `Kalpana G ${MEMBER_BIO}` },
+  {
+    name: 'Jeevan NL', role: 'Managing Director',
+    bio: 'Jeevan NL is a Managing Director of LapNest and focuses on laptop quality. Every laptop is checked before it goes out, so what reaches the customer is ready to use from day one.\n\nWhether it is rented for a week or a month, or bought outright, the standard stays the same: a laptop that works the way it should.',
+  },
+  {
+    name: 'Vasanth Reddy', role: 'Managing Director',
+    bio: 'Vasanth Reddy is a Managing Director of LapNest and focuses on clear pricing. Rent, deposit and GST are shown before an order is placed, and laptops for sale are priced 5–10% below MRP.\n\nThe aim is that no customer is ever surprised by a charge at checkout.',
+  },
+  {
+    name: 'Kalpana G', role: 'Managing Director',
+    bio: 'Kalpana G is a Managing Director of LapNest and focuses on customer care. Customers can call, message on WhatsApp or book a call, and the team is there when something goes wrong.\n\nA good rental does not end at delivery, so every question and every problem gets a real answer.',
+  },
   {
     name: 'Gangothri V', role: 'Accounts',
     bio: 'Gangothri V looks after accounts at LapNest, keeping the numbers behind every order accurate and easy to follow.\n\nThat includes the invoices with GST details that customers download from their account, and the refundable security deposits collected when a laptop is rented and returned after it is checked.',
