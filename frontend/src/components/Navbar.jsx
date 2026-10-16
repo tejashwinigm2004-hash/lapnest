@@ -4,10 +4,10 @@ import { useState } from 'react'; import { Link, NavLink, useNavigate } from 're
 const CITIES = ['Bengaluru'];
 
 // ===== EDIT: the category menu. "items" makes a dropdown. =====
-// Brand links use the search box (?search=). They only filter if your Products page reads that value.
+// Brand links filter the Products page through its search value (?q=).
 const MENU = [
   { label: 'Laptops', to: '/products', items: [['All laptops', '/products'], ['Laptops for rent', '/products?availableFor=rent'], ['Laptops to buy', '/products?availableFor=buy']] },
-  { label: 'Brands', items: ['Dell', 'HP', 'Lenovo', 'Apple', 'Acer', 'Asus'].map(b => [b, `/products?search=${b}`]) },
+  { label: 'Brands', items: ['Dell', 'HP', 'Lenovo', 'Apple', 'Acer', 'Asus'].map(b => [b, `/products?q=${b}`]) },
   { label: 'Rent', to: '/products?availableFor=rent' },
   { label: 'Buy', to: '/products?availableFor=buy' },
   { label: 'About us', to: '/about' },
@@ -19,22 +19,24 @@ export default function Navbar() {
   const [open, setOpen] = useState(false), [q, setQ] = useState(''), [city, setCity] = useState(() => { try { return localStorage.getItem('city') || CITIES[0]; } catch { return CITIES[0]; } });
   const close = () => setOpen(false);
   const pickCity = c => { setCity(c); try { localStorage.setItem('city', c); } catch { /* ignore */ } };
-  const search = e => { e.preventDefault(); const t = q.trim(); navigate(t ? `/products?search=${encodeURIComponent(t)}` : '/products'); setQ(''); close(); };
+  const search = e => { e.preventDefault(); const t = q.trim(); navigate(t ? `/products?q=${encodeURIComponent(t)}` : '/products'); setQ(''); close(); };
   const home = user ? (user.role === 'user' ? '/user' : '/admin') : '/login';
   const l = ({ isActive }) => `flex items-center gap-1 px-1 min-h-11 text-sm font-medium ${isActive ? 'text-brand' : 'text-ink hover:text-brand'}`;
 
-  const SearchBox = ({ className = '' }) => <form onSubmit={search} role="search" className={`flex items-center bg-white border border-slate-300 rounded-full overflow-hidden focus-within:border-brand ${className}`}>
+  // These are plain functions that return JSX (called below as searchBox(), not <SearchBox />),
+  // so React keeps the same input while you type and the cursor never leaves the box.
+  const searchBox = (className = '') => <form onSubmit={search} role="search" className={`flex items-center bg-white border border-slate-300 rounded-full overflow-hidden focus-within:border-brand ${className}`}>
     <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search laptops, brands…" aria-label="Search laptops" className="flex-1 min-w-0 px-4 min-h-11 bg-transparent outline-none text-sm" />
     <button aria-label="Search" className="w-12 min-h-11 grid place-items-center bg-brand text-white"><Search size={18} /></button></form>;
 
-  const CitySelect = () => <label className="flex items-center gap-1 border border-slate-300 rounded-full px-3 min-h-11 bg-white text-sm text-ink"><MapPin size={16} className="text-brand shrink-0" />
+  const citySelect = () => <label className="flex items-center gap-1 border border-slate-300 rounded-full px-3 min-h-11 bg-white text-sm text-ink"><MapPin size={16} className="text-brand shrink-0" />
     <select value={city} onChange={e => pickCity(e.target.value)} aria-label="Select a city" className="bg-transparent outline-none cursor-pointer max-w-[7.5rem]">{CITIES.map(c => <option key={c}>{c}</option>)}</select></label>;
 
-  const CartLink = ({ full }) => <Link to="/cart" onClick={close} aria-label={`Cart, ${cart.length} items`} className="relative flex items-center gap-2 min-h-11 px-2 text-ink hover:text-brand">
+  const cartLink = full => <Link to="/cart" onClick={close} aria-label={`Cart, ${cart.length} items`} className="relative flex items-center gap-2 min-h-11 px-2 text-ink hover:text-brand">
     <ShoppingCart size={22} />{full && <span className="text-sm font-medium">Cart</span>}
     {cart.length > 0 && <span className="absolute -top-0.5 left-5 min-w-5 h-5 px-1 rounded-full bg-brand text-white text-xs font-bold grid place-items-center">{cart.length}</span>}</Link>;
 
-  const Account = ({ mobile }) => user
+  const account = mobile => user
     ? <div className={`flex items-center gap-3 ${mobile ? 'flex-col items-stretch' : ''}`}>
         <Link to={home} onClick={close} className="flex items-center gap-2 min-h-11 text-sm font-medium text-ink hover:text-brand"><CircleUser size={22} />{user.role === 'user' ? 'My account' : 'Admin'}</Link>
         <button onClick={() => { logout(); close(); }} className="min-h-11 px-4 rounded-full border border-slate-300 text-sm font-medium hover:border-brand hover:text-brand">Sign out ({user.name.split(' ')[0]})</button></div>
@@ -45,12 +47,12 @@ export default function Navbar() {
     <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-3 md:gap-5">
       <button className="md:hidden min-h-11 min-w-11 grid place-items-center -ml-2" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
       <Link to="/" onClick={close} className="flex items-center gap-2 font-serif font-bold text-ink text-2xl shrink-0"><img src="/logo.png" alt="" className="h-8" onError={e => (e.currentTarget.style.display = 'none')} />{biz.name}</Link>
-      <div className="hidden md:block"><CitySelect /></div>
-      <SearchBox className="hidden md:flex flex-1 max-w-xl" />
-      <div className="ml-auto flex items-center gap-2 md:gap-4"><CartLink full /><div className="hidden md:block"><Account /></div></div></div>
+      <div className="hidden md:block">{citySelect()}</div>
+      {searchBox('hidden md:flex flex-1 max-w-xl')}
+      <div className="ml-auto flex items-center gap-2 md:gap-4">{cartLink(true)}<div className="hidden md:block">{account()}</div></div></div>
 
     {/* Mobile search bar */}
-    <div className="md:hidden px-4 pb-3"><SearchBox /></div>
+    <div className="md:hidden px-4 pb-3">{searchBox()}</div>
 
     {/* Row 2: category menu (desktop) */}
     <nav aria-label="Categories" className="hidden md:block border-t border-sand bg-soft"><ul className="max-w-7xl mx-auto px-4 flex items-center gap-7">
@@ -61,10 +63,10 @@ export default function Navbar() {
 
     {/* Mobile drawer */}
     {open && <div className="md:hidden border-t border-sand bg-white max-h-[75vh] overflow-y-auto p-4 flex flex-col gap-1">
-      <div className="mb-3"><CitySelect /></div>
+      <div className="mb-3">{citySelect()}</div>
       {MENU.map(m => <div key={m.label}>
         {m.to ? <Link to={m.to} onClick={close} className="block py-3 font-semibold text-ink border-b border-sand">{m.label}</Link> : <p className="pt-3 pb-1 font-semibold text-ink">{m.label}</p>}
         {m.items && <div className="pl-3 pb-2">{m.items.map(([t, to]) => <Link key={t} to={to} onClick={close} className="block py-2 text-sm text-slate-600">{t}</Link>)}</div>}</div>)}
-      <div className="mt-4"><Account mobile /></div></div>}
+      <div className="mt-4">{account(true)}</div></div>}
   </header>;
 }

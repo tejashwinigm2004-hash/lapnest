@@ -1,8 +1,15 @@
 import { Router } from 'express'; import { Product } from '../models/index.js'; import { verifyToken, allowRoles } from '../middleware/auth.js'; import { sellingPrice } from '../utils/priceEngine.js';
 const r = Router(); const view = p => ({ ...p.toObject(), sellingPrice: sellingPrice(p) });
+const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const SEARCH_FIELDS = ['name', 'brand', 'specs.processor', 'specs.ram', 'specs.storage'];
 r.get('/', async (req, res) => {
   const { q, brand, ram, availableFor, sort, page = 1 } = req.query, f = { isActive: true };
-  if (q) f.$text = { $search: String(q) }; if (brand) f.brand = String(brand); if (ram) f['specs.ram'] = String(ram);
+  if (q) {
+    // every typed word must match the name, brand or specs (partial words work, e.g. "del" finds Dell)
+    const words = String(q).slice(0, 100).trim().split(/\s+/).filter(Boolean).slice(0, 6);
+    if (words.length) f.$and = words.map(w => { const re = new RegExp(esc(w), 'i'); return { $or: SEARCH_FIELDS.map(k => ({ [k]: re })) }; });
+  }
+  if (brand) f.brand = String(brand); if (ram) f['specs.ram'] = String(ram);
   if (availableFor) f.availableFor = { $in: [String(availableFor), 'both'] };
   const order = { price_asc: { mrp: 1 }, price_desc: { mrp: -1 } }[sort] || { createdAt: -1 };
   const items = await Product.find(f).sort(order).skip((page - 1) * 12).limit(12);
