@@ -1,5 +1,6 @@
-import { Router } from 'express'; import bcrypt from 'bcryptjs'; import jwt from 'jsonwebtoken'; import nodemailer from 'nodemailer';
+import { Router } from 'express'; import bcrypt from 'bcryptjs'; import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator'; import { User } from '../models/index.js'; import { verifyToken } from '../middleware/auth.js';
+import sendEmail from '../utils/sendEmail.js';
 const r = Router();
 const sign = u => jwt.sign({ id: u._id, role: u.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
 const pub = u => ({ id: u._id, name: u.name, email: u.email, role: u.role });
@@ -23,12 +24,11 @@ r.post('/login', async (req, res) => {
 // so it stops working as soon as the password changes (one use only) and expires in 15 minutes.
 const resetSecret = u => `${process.env.JWT_SECRET}${u.password}`;
 const sendMail = async (to, link) => {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) { console.log('Reset link (email not set up):', link); return; }
-  const t = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } });
-  await t.sendMail({
-    from: `"LapNest" <${process.env.SMTP_USER}>`, to, subject: 'Reset your LapNest password',
-    text: `Click this link to set a new password. It works once and expires in 15 minutes.\n\n${link}\n\nIf you did not ask for this, ignore this email.`,
-    html: `<p>Click the button below to set a new password. The link works once and expires in 15 minutes.</p><p><a href="${link}" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block">Reset password</a></p><p>If you did not ask for this, ignore this email.</p>`,
+  if (!process.env.BREVO_API_KEY) { console.log('Reset link (email not set up):', link); return; }
+  await sendEmail({
+    to,
+    subject: 'Reset your LapNest password',
+    html: `<p>Click the button below to set a new password. The link works once and expires in 15 minutes.</p><p><a href="${link}" style="background:#D9480F;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block">Reset password</a></p><p>If the button does not work, copy this link into your browser:<br>${link}</p><p>If you did not ask for this, ignore this email.</p>`,
   });
 };
 r.post('/forgot-password', body('email').isEmail(), async (req, res) => {
