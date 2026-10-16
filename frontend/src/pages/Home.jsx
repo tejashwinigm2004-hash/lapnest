@@ -2,19 +2,23 @@ import { useEffect, useState } from 'react'; import { Link } from 'react-router-
 import api from '../services/api'; import { inr } from '../utils'; import ProductCard from '../components/ProductCard'; import ProductImage from '../components/ProductImage'; import { biz, wa } from '../config'; import AdPlayer, { useAdVideo } from '../components/VideoAd';
 const why = [[Tag, '5–10% off to buy', 'Every laptop we sell is priced below MRP.'], [CalendarClock, 'Rent by day, week or month', 'Pick the plan and see the exact total first.'], [ShieldCheck, 'Refundable deposit', 'Get it back after the laptop is returned and checked.'], [Truck, 'Delivery and pickup', 'We bring it to you and collect it when you are done.']];
 const Float = ({ className = '', dur = 6, delay = 0, rot = 0, children }) => <div className={`absolute ${className}`} style={{ transform: `rotate(${rot}deg)` }}><div className="ln-f" style={{ animation: `lnFloat ${dur}s ease-in-out ${delay}s infinite` }}>{children}</div></div>;
+// Hero brightness controls: raise HERO_BRIGHTNESS to brighten the video, lower the overlay numbers to remove more darkness.
+const HERO_BRIGHTNESS = 1.3;
+const HERO_FILTER = `brightness(${HERO_BRIGHTNESS}) saturate(1.1)`;
 function FullHero({ kind, onBook }) {
   const [muted, setMuted] = useState(true);
-  return <section className="relative isolate overflow-hidden bg-black text-white min-h-[calc(100svh-4rem)] flex items-center justify-center text-center">
+  return <section className="relative isolate overflow-hidden bg-slate-700 text-white min-h-[calc(100svh-4rem)] flex items-center justify-center text-center">
     {kind === 'youtube'
-      ? <iframe title={`${biz.name} video`} tabIndex={-1} allow="autoplay; encrypted-media" className="absolute top-1/2 left-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0"
+      ? <iframe title={`${biz.name} video`} tabIndex={-1} allow="autoplay; encrypted-media" className="absolute top-1/2 left-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none border-0" style={{ filter: HERO_FILTER }}
           src={`https://www.youtube-nocookie.com/embed/${biz.adYoutubeId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${biz.adYoutubeId}&rel=0&playsinline=1`} />
-      : <Parallax speed={0.15} className="absolute inset-x-0 -top-24 -bottom-24"><video src={biz.adVideo} autoPlay muted={muted} loop playsInline className="w-full h-full object-cover" /></Parallax>}
-    <div className="absolute inset-0 bg-black/55" />
-    <div className="relative z-10 max-w-3xl px-6 py-16">
+      : <Parallax speed={0.15} className="absolute inset-x-0 -top-24 -bottom-24"><video src={biz.adVideo} autoPlay muted={muted} loop playsInline className="w-full h-full object-cover" style={{ filter: HERO_FILTER }} /></Parallax>}
+    <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.25))' }} />
+    <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, rgba(255,255,255,.22), transparent 70%)' }} />
+    <div className="relative z-10 max-w-3xl px-6 py-16" style={{ textShadow: '0 2px 18px rgba(0,0,0,.55)' }}>
       <span className="anim-up inline-block mb-3 rounded-full border border-white/40 bg-white/10 px-4 py-1 text-sm">Rent or buy · 5–10% off</span>
       <h1 className="anim-up d1 mt-2 text-4xl md:text-6xl font-bold leading-[1.1]">Business-grade laptops, ready when you are.</h1>
       <p className="anim-up d2 mt-5 text-lg opacity-90 max-w-xl mx-auto">Rent by the day, week or month, or buy at 5–10% off. See the full price before you order.</p>
-      <div className="anim-up d3 mt-8 flex flex-wrap justify-center gap-3"><Link to="/products?availableFor=rent" className="bg-brand text-white px-7 min-h-12 grid place-items-center rounded-full font-semibold">Rent a laptop</Link>
+      <div className="anim-up d3 mt-8 flex flex-wrap justify-center gap-3" style={{ textShadow: 'none' }}><Link to="/products?availableFor=rent" className="bg-brand text-white px-7 min-h-12 grid place-items-center rounded-full font-semibold">Rent a laptop</Link>
         <Link to="/products?availableFor=buy" className="border border-white text-white px-7 min-h-12 grid place-items-center rounded-full font-semibold">Buy a laptop</Link><button onClick={onBook} className="bg-white text-brand px-7 min-h-12 rounded-full font-semibold">Book a call</button></div></div>
     <ChevronDown aria-hidden="true" className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/80 animate-bounce" />
     {kind === 'file' && <button onClick={() => setMuted(m => !m)} aria-label={muted ? 'Turn sound on' : 'Turn sound off'} className="absolute bottom-5 right-5 z-10 w-11 h-11 rounded-full bg-white/90 text-ink grid place-items-center">{muted ? <VolumeX size={18} /> : <Volume2 size={18} />}</button>}</section>;
