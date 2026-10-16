@@ -1,7 +1,7 @@
 // Edit business details here. Placeholders are marked TODO.
 export const biz = {
   name: 'LapNest', tagline: 'Business-grade laptops to rent or buy',
-  phone: '8618854283', whatsapp: '918618854283', email: 'nnarasimhamurthycn@gmail.com',
+  phone: '8618854283', whatsapp: '919632214760', email: 'rtejas672@gmail.com',
   instagram: 'https://instagram.com/mass_murthy',
   facebook: 'https://facebook.com/your-page',            // TODO
   address: 'Your store address, Bengaluru, Karnataka',  // TODO
