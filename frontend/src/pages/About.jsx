@@ -1,4 +1,4 @@
-import { ShieldCheck, Tag, Phone } from 'lucide-react'; import { biz } from '../config'; import Reveal from '../components/Reveal';
+import { ShieldCheck, Tag, Phone } from 'lucide-react'; import { biz } from '../config'; import Reveal from '../components/Reveal'; import WordReveal from '../components/WordReveal';
 
 // ===== EDIT: the "Who we are" text. Each line is one paragraph. =====
 const ABOUT = [
@@ -49,8 +49,8 @@ export default function About() {
       <div aria-hidden="true" className="absolute -bottom-32 left-1/3 w-96 h-96 rounded-full bg-white/10" />
       <div className="relative max-w-6xl mx-auto px-4 pt-16 pb-28 md:pt-24 md:pb-36">
         <p className="inline-block rounded-full border border-white/40 bg-white/10 px-4 py-1 text-sm font-medium">About us</p>
-        <h1 className="mt-4 text-4xl md:text-6xl font-bold leading-[1.1] !text-white">About {biz.name}</h1>
-        {biz.tagline && <p className="mt-4 text-lg md:text-xl opacity-90 max-w-xl">{biz.tagline}</p>}
+        <WordReveal as="h1" immediate text={`About ${biz.name}`} className="mt-4 text-4xl md:text-6xl font-bold leading-[1.1] !text-white" />
+        {biz.tagline && <WordReveal as="p" immediate delay={500} text={biz.tagline} className="mt-4 text-lg md:text-xl opacity-90 max-w-xl" />}
       </div>
       <svg aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" className="absolute bottom-0 left-0 w-full h-12 md:h-20 block"><path d="M0 80V40C240 0 480 0 720 30S1200 70 1440 30V80Z" fill="#FAFAF9" /></svg>
     </section>
@@ -61,8 +61,8 @@ export default function About() {
         <h2 className="text-3xl font-bold text-ink">Who we are</h2>
         <div className="band mt-2 w-14 h-3.5" style={{ backgroundPosition: 'left center' }} aria-hidden="true" />
         <div className="mt-5 space-y-4 text-lg leading-8">
-          {ABOUT.map((t, i) => <p key={i}>{t}</p>)}
-          <p className="font-semibold text-ink">{ABOUT_CLOSING}</p>
+          {ABOUT.map((t, i) => <WordReveal key={i} as="p" text={t} />)}
+          <WordReveal as="p" text={ABOUT_CLOSING} className="font-semibold text-ink" />
         </div>
       </Reveal>
       <div className="grid gap-4">
