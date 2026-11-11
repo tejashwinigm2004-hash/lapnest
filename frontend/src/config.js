@@ -1,6 +1,6 @@
 // Edit business details here. Placeholders are marked TODO.
 export const biz = {
-  name: 'LapNest', tagline: 'Business-grade laptops to rent or buy',
+  name: 'HyperLap Technologies', tagline: 'Business-grade laptops to rent or buy',
   phone: '9632214760', whatsapp: '919632214760', email: 'rtejas672@gmail.com',
   instagram: 'https://instagram.com/mass_murthy',
   address: 'Hustlehub Tech Park, 36/5, Somasundarapalya, 27th Main Rd, Sector 2, HSR Layout, Bengaluru, Karnataka 560102',

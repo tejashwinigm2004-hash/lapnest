@@ -2,34 +2,34 @@ import { ShieldCheck, Tag, Phone } from 'lucide-react'; import { biz } from '../
 
 // ===== EDIT: the "Who we are" text. Each line is one paragraph. =====
 const ABOUT = [
-  'At LapNest, we provide reliable and flexible IT solutions to help businesses operate efficiently and grow with confidence. We specialize in laptop rentals, IT hardware procurement, software solutions, and genuine software licensing to meet the diverse technology needs of businesses, startups, and enterprises.',
+  'At HyperLap Technologies, we provide reliable and flexible IT solutions to help businesses operate efficiently and grow with confidence. We specialize in laptop rentals, IT hardware procurement, software solutions, and genuine software licensing to meet the diverse technology needs of businesses, startups, and enterprises.',
   'Our services go beyond laptop rentals. We help organizations access essential business software, cybersecurity solutions, productivity tools, and network infrastructure licenses from trusted technology providers.',
   'Our offerings include laptop and IT equipment rentals, Microsoft Office 365, GoTo solutions, CrowdStrike cybersecurity solutions, Aruba networking licenses, and other enterprise software and licensing services.',
-  'At LapNest, we focus on delivering cost-effective solutions, flexible rental options, dependable service, and technology that supports your business goals. Whether you need laptops for a growing team, software licenses for daily operations, or networking and security solutions for your IT infrastructure, we aim to make technology procurement simple and hassle-free.',
+  'At HyperLap Technologies, we focus on delivering cost-effective solutions, flexible rental options, dependable service, and technology that supports your business goals. Whether you need laptops for a growing team, software licenses for daily operations, or networking and security solutions for your IT infrastructure, we aim to make technology procurement simple and hassle-free.',
 ];
-const ABOUT_CLOSING = 'LapNest – Your Trusted Partner for IT Hardware, Software and Licensing Solutions.';
+const ABOUT_CLOSING = 'HyperLap Technologies – Your Trusted Partner for IT Hardware, Software and Licensing Solutions.';
 
 // ===== EDIT: team members. Separate paragraphs in a bio with a blank line (\n\n). =====
 const TEAM = [
   {
     name: 'Teja K H', role: 'Managing Director',
-    bio: 'Teja K H is a Managing Director of LapNest and sets the direction of the business. The idea behind LapNest is simple: students, startups and teams should be able to get a good laptop without paying full price.\n\nThat idea guides every decision, from which laptops are offered to how rent and prices are explained, so a customer always knows what they are getting.',
+    bio: 'Teja K H is a Managing Director of HyperLap Technologies and sets the direction of the business. The idea behind HyperLap Technologies is simple: students, startups and teams should be able to get a good laptop without paying full price.\n\nThat idea guides every decision, from which laptops are offered to how rent and prices are explained, so a customer always knows what they are getting.',
   },
   {
     name: 'Jeevan NL', role: 'Managing Director',
-    bio: 'Jeevan NL is a Managing Director of LapNest and focuses on laptop quality. Every laptop is checked before it goes out, so what reaches the customer is ready to use from day one.\n\nWhether it is rented for a week or a month, or bought outright, the standard stays the same: a laptop that works the way it should.',
+    bio: 'Jeevan NL is a Managing Director of HyperLap Technologies and focuses on laptop quality. Every laptop is checked before it goes out, so what reaches the customer is ready to use from day one.\n\nWhether it is rented for a week or a month, or bought outright, the standard stays the same: a laptop that works the way it should.',
   },
   {
     name: 'Vasanth Reddy', role: 'Shareholder',
-    bio: 'Vasanth Reddy is a Shareholder of LapNest and has backed the business from the start. He believes that companies of every size should be able to get dependable IT hardware and genuine software without a heavy upfront cost.\n\nHis focus is on growth that lasts: building partnerships with trusted technology providers and making sure LapNest keeps its prices clear and its promises kept as it grows.',
+    bio: 'Vasanth Reddy is a Shareholder of HyperLap Technologies and has backed the business from the start. He believes that companies of every size should be able to get dependable IT hardware and genuine software without a heavy upfront cost.\n\nHis focus is on growth that lasts: building partnerships with trusted technology providers and making sure HyperLap Technologies keeps its prices clear and its promises kept as it grows.',
   },
   {
     name: 'Kalpana G', role: 'Shareholder',
-    bio: 'Kalpana G is a Shareholder of LapNest and cares most about the long-term trust the company builds with its customers. For her, a good IT partner is one that is still reliable years after the first order.\n\nShe encourages the team to put service first: honest advice, quick answers and support that continues well after delivery.',
+    bio: 'Kalpana G is a Shareholder of HyperLap Technologies and cares most about the long-term trust the company builds with its customers. For her, a good IT partner is one that is still reliable years after the first order.\n\nShe encourages the team to put service first: honest advice, quick answers and support that continues well after delivery.',
   },
   {
     name: 'Gangothri V', role: 'Accounts',
-    bio: 'Gangothri V looks after accounts at LapNest, keeping the numbers behind every order accurate and easy to follow.\n\nThat includes the invoices with GST details that customers download from their account, and the refundable security deposits collected when a laptop is rented and returned after it is checked.',
+    bio: 'Gangothri V looks after accounts at HyperLap Technologies, keeping the numbers behind every order accurate and easy to follow.\n\nThat includes the invoices with GST details that customers download from their account, and the refundable security deposits collected when a laptop is rented and returned after it is checked.',
   },
 ];
 
