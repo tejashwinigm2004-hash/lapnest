@@ -44,10 +44,11 @@ export default function Navbar() {
 
   return <header className="sticky top-0 z-20 bg-white shadow-sm">
     {/* Row 1: logo, city, search, cart, account */}
-    <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-3 md:gap-5">
+    <div className="max-w-7xl mx-auto px-4 h-20 flex items-center gap-3 md:gap-5">
       <button className="md:hidden min-h-11 min-w-11 grid place-items-center -ml-2" aria-label="Menu" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
-      <Link to="/" onClick={close} className="flex items-center gap-2 font-serif font-bold text-ink text-2xl shrink-0"><img src="/logo.png" alt="" className="h-8" onError={e => (e.currentTarget.style.display = 'none')} />{biz.name}</Link>
-      <div className="hidden md:block">{citySelect()}</div>
+<Link to="/" onClick={close} aria-label={biz.name} className="flex items-center shrink-0">
+  <img src="/logo.png" alt={biz.name} className="h-12 md:h-16 w-auto" />
+</Link>      <div className="hidden md:block">{citySelect()}</div>
       {searchBox('hidden md:flex flex-1 max-w-xl')}
       <div className="ml-auto flex items-center gap-2 md:gap-4">{cartLink(true)}<div className="hidden md:block">{account()}</div></div></div>
 
