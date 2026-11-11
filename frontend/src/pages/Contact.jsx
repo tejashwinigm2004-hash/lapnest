@@ -5,7 +5,7 @@ export default function Contact() {
   const row = 'flex items-center gap-3 hover:text-brand';
   return <div className="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10"><div><h1 className="text-3xl font-bold text-ink">Contact us</h1>
     <div className="mt-6 space-y-3"><a className={row} href={`tel:+91${biz.phone}`}><Phone size={18} />{biz.phone}</a><a className={row} href={wa()} target="_blank" rel="noreferrer"><MessageCircle size={18} />Chat on WhatsApp</a><a className={row} href={`mailto:${biz.email}`}><Mail size={18} />{biz.email}</a>
-      <a className={row} href={biz.instagram} target="_blank" rel="noreferrer"><Instagram size={18} />@mass_murthy</a><p className={row}><MapPin size={18} />{biz.address}</p><p className="text-sm">{biz.hours}</p></div>
+      <a className={row} href={biz.instagram} target="_blank" rel="noreferrer"><Instagram size={18} />@hyperlap_technologies</a><p className={row}><MapPin size={18} />{biz.address}</p><p className="text-sm">{biz.hours}</p></div>
     <iframe title="Store location" className="mt-6 w-full h-56 rounded-2xl border-0" loading="lazy" src={`https://www.google.com/maps?q=${encodeURIComponent(biz.mapQuery)}&output=embed`} />
     <a className="inline-block mt-3 text-brand font-semibold" target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(biz.mapQuery)}`}>Get directions</a></div>
     <form onSubmit={send} className="space-y-3 border border-slate-200 rounded-2xl p-6 h-fit"><p className="font-semibold text-ink">Send us a message</p>
